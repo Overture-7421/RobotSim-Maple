@@ -45,6 +45,10 @@
             "/AdvantageKit",
             "/AdvantageKit/RealOutputs/Reefscape2025",
             "/AdvantageKit/RealOutputs/Reefscape2025/SimulatedChassis",
+            "/AdvantageKit/RealOutputs/Rebuilt2026",
+            "/AdvantageKit/RealOutputs/Rebuilt2026/SimulatedChassis",
+            "/AdvantageKit/RealOutputs/DaytonaOffseason",
+            "/AdvantageKit/RealOutputs/DaytonaOffseason/SimulatedChassis",
             "/SmartDashboard",
             "/SmartDashboard/SwerveChassis/Odometry",
             "/SmartDashboard/SwerveChassis/Odometry/Pose"
@@ -162,6 +166,26 @@
                     "visible": true,
                     "options": {
                       "color": "#ff0000",
+                      "arrangement": "0,1,2,3"
+                    }
+                  },
+                  {
+                    "type": "states",
+                    "logKey": "NT:/AdvantageKit/RealOutputs/Rebuilt2026/SimulatedChassis/ModuleStates",
+                    "logType": "SwerveModuleState[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#00ff00",
+                      "arrangement": "0,1,2,3"
+                    }
+                  },
+                  {
+                    "type": "states",
+                    "logKey": "NT:/AdvantageKit/RealOutputs/DaytonaOffseason/SimulatedChassis/ModuleStates",
+                    "logType": "SwerveModuleState[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#0000ff",
                       "arrangement": "0,1,2,3"
                     }
                   },

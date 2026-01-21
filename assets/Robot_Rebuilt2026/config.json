@@ -1,0 +1,70 @@
+{
+    "name": "Rebuilt2026",
+    "rotations": [
+        {
+            "axis": "x",
+            "degrees": 90
+            
+        },
+        {
+            "axis": "y",
+            "degrees": 0
+        },
+        {
+            "axis": "z",
+            "degrees": 90
+        }
+    ],
+    "position": [
+        0,
+        0,
+        0.09
+    ],
+    "cameras": [],
+    "components": [
+        { 
+            "_comment": "Spindexer",
+            "zeroedRotations": [
+                {
+                    "axis": "x",
+                    "degrees": 90
+                },
+                {
+                    "axis": "y",
+                    "degrees": 0
+                },
+                {
+                    "axis": "z",
+                    "degrees": 90
+                }
+            ],
+            "zeroedPosition": [
+                0.0,
+                0.0,
+                -0.06
+            ]
+        },
+                { 
+            "_comment": "Intake",
+            "zeroedRotations": [
+                {
+                    "axis": "x",
+                    "degrees": 90
+                },
+                {
+                    "axis": "y",
+                    "degrees": 0
+                },
+                {
+                    "axis": "z",
+                    "degrees": 90
+                }
+            ],
+            "zeroedPosition": [
+                0.365,
+                0.0,
+                -0.12
+            ]
+        }
+    ]
+}

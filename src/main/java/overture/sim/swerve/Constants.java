@@ -23,7 +23,10 @@ public class Constants {
                 Volts.of(0.01),
                 Inches.of(2),
                 KilogramSquareMeters.of(0.03),
-                COTS.WHEELS.SLS_PRINTED_WHEELS.cof);
+                // Use a conservative tire coefficient of friction to avoid bounding-check errors
+                // The COTS value was flagged as abnormal by the simulation (e.g., ~2.106)
+                // Set to a typical realistic value (~0.9) for rubber on carpet/asphalt.
+                0.9);
     }
 
     public static DriveTrainSimulationConfig Swerve2024() {
