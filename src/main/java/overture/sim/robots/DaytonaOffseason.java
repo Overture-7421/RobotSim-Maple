@@ -123,12 +123,6 @@ public class DaytonaOffseason extends SimBaseRobot {
                 false,
                 true);
 
-
-
-
-
-
-
         // List of mechanisms
         mechanisms = List.of(elevator, armRotator, armWheels, intake, centerWheels, intakeWheels);
     }
