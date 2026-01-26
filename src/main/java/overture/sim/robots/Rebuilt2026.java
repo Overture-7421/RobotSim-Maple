@@ -23,10 +23,10 @@ import overture.sim.swerve.SwerveChassis;
 
 public class Rebuilt2026 extends SimBaseRobot {
     SwerveChassis driveTrain;
-    Flywheel spindexer, intakeRollers;
-    Arm intake, turret;
+    Flywheel spindexer, intakeRollers, shooterWheels;
+    Arm intake, turret, hood;
     Elevator elevator;
-    Transform3d originalRobotToSpindexer, originalRobotToIntake, originalRobotToElevator, originalRobotToIntakeRollers, originalRobotToTurret;
+    Transform3d originalRobotToSpindexer, originalRobotToIntake, originalRobotToElevator, originalRobotToIntakeRollers, originalRobotToTurret, originalRobotToHood, originalRobotToShooterWheels;
 
     List<SimMechanism> mechanisms;
 
@@ -93,7 +93,7 @@ public class Rebuilt2026 extends SimBaseRobot {
                 true);
 
         // Turret (Arm)
-        originalRobotToTurret = new Transform3d(Meters.of(0.25), Meters.of(-0.115), Meters.of(0.3), new Rotation3d());
+        originalRobotToTurret = new Transform3d(Meters.of(0.26), Meters.of(-0.11), Meters.of(0.28), new Rotation3d());
         turret = new Arm(this,
                 new Transform3d(originalRobotToTurret.getMeasureX(), originalRobotToTurret.getMeasureY(), originalRobotToTurret.getMeasureZ(), originalRobotToTurret.getRotation()),
                 new Rotation3d(0, 0, 1), // Arm rotations around this axis
@@ -108,11 +108,37 @@ public class Rebuilt2026 extends SimBaseRobot {
                 false,
                 false);
         
+        // Hood (Arm)
+        originalRobotToHood = new Transform3d(Meters.of(0.12), Meters.of(-0.11), Meters.of(0.35), new Rotation3d());
+        hood = new Arm(this,
+                new Transform3d(originalRobotToHood.getMeasureX(), originalRobotToHood.getMeasureY(), originalRobotToHood.getMeasureZ(), originalRobotToHood.getRotation()),
+                new Rotation3d(0, 1, 0), // Arm rotations around this axis
+                "hood",
+                DCMotor.getKrakenX60(1),
+                1,
+                1.0,
+                Meters.of(1),
+                Degrees.of(-9999),
+                Degrees.of(9999.0),
+                Degrees.of(0.0),
+                false,
+                false);
 
+        // Shooter Wheels (Flywheel)
+        originalRobotToShooterWheels = new Transform3d(Meters.of(0.13), Meters.of(-0.11), Meters.of(0.35), new Rotation3d());
+        shooterWheels = new Flywheel(this,
+                new Transform3d(originalRobotToShooterWheels.getMeasureX(), originalRobotToShooterWheels.getMeasureY(), originalRobotToShooterWheels.getMeasureZ(), originalRobotToShooterWheels.getRotation()),
+                new Rotation3d(0, 1, 0), // Flywheel rotates around this axis
+                "shooterWheels",
+                DCMotor.getKrakenX60(1),
+                1,
+                0.01,
+                false,
+                true);
         
 
         // List of mechanisms
-        mechanisms = List.of(spindexer, intake, elevator, intakeRollers, turret);
+        mechanisms = List.of(spindexer, intake, elevator, intakeRollers, turret, hood, shooterWheels);
     }
 
     @Override
