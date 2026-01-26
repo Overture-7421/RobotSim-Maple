@@ -109,7 +109,7 @@ public class Rebuilt2026 extends SimBaseRobot {
                 false);
         
         // Hood (Arm)
-        originalRobotToHood = new Transform3d(Meters.of(0.12), Meters.of(-0.11), Meters.of(0.35), new Rotation3d());
+        originalRobotToHood = new Transform3d(Meters.of(0.255), Meters.of(-0.11), Meters.of(0.35), new Rotation3d());
         hood = new Arm(this,
                 new Transform3d(originalRobotToHood.getMeasureX(), originalRobotToHood.getMeasureY(), originalRobotToHood.getMeasureZ(), originalRobotToHood.getRotation()),
                 new Rotation3d(0, 1, 0), // Arm rotations around this axis
@@ -125,7 +125,7 @@ public class Rebuilt2026 extends SimBaseRobot {
                 false);
 
         // Shooter Wheels (Flywheel)
-        originalRobotToShooterWheels = new Transform3d(Meters.of(0.13), Meters.of(-0.11), Meters.of(0.35), new Rotation3d());
+        originalRobotToShooterWheels = new Transform3d(Meters.of(0.258), Meters.of(-0.11), Meters.of(0.35), new Rotation3d());
         shooterWheels = new Flywheel(this,
                 new Transform3d(originalRobotToShooterWheels.getMeasureX(), originalRobotToShooterWheels.getMeasureY(), originalRobotToShooterWheels.getMeasureZ(), originalRobotToShooterWheels.getRotation()),
                 new Rotation3d(0, 1, 0), // Flywheel rotates around this axis
@@ -136,7 +136,6 @@ public class Rebuilt2026 extends SimBaseRobot {
                 false,
                 true);
         
-
         // List of mechanisms
         mechanisms = List.of(spindexer, intake, elevator, intakeRollers, turret, hood, shooterWheels);
     }
@@ -149,7 +148,6 @@ private static final Transform3d intakeToRollers =
         Meters.of(0.22),
         new Rotation3d()
     );
-
 
     @Override
 public void Update() {
@@ -164,6 +162,25 @@ public void Update() {
         intakeRollers.SetRobotToMechanism(robotToRollers);
         // ---------------------------------------
         // INTAKE & INTAKE ROLLERS
+        // ---------------------------------------
+
+
+        // ---------------------------------------
+        // TURRET ROTATION HERITAGE TO HOOD AND SHOOTER WHEELS
+        // ---------------------------------------
+        Pose3d turretPose = turret.GetPoses3d().get(0);
+        Translation3d hoodOffset = originalRobotToHood.getTranslation();
+        Translation3d shooterWheelsOffset = originalRobotToShooterWheels.getTranslation();
+        Pose3d hoodPose = new Pose3d(hoodOffset, turretPose.getRotation());
+        Pose3d shooterWheelsPose = new Pose3d(shooterWheelsOffset, turretPose.getRotation());
+        hood.SetRobotToMechanism(
+            new Transform3d(hoodPose.getTranslation(), hoodPose.getRotation())
+        );
+        shooterWheels.SetRobotToMechanism(
+            new Transform3d(shooterWheelsPose.getTranslation(), shooterWheelsPose.getRotation())
+        );
+        // ---------------------------------------
+        // TURRET ROTATION HERITAGE TO HOOD AND SHOOTER WHEELS
         // ---------------------------------------
 }
 
