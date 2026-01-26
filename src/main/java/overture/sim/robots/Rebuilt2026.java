@@ -24,9 +24,9 @@ import overture.sim.swerve.SwerveChassis;
 public class Rebuilt2026 extends SimBaseRobot {
     SwerveChassis driveTrain;
     Flywheel spindexer, intakeRollers;
-    Arm intake;
+    Arm intake, turret;
     Elevator elevator;
-    Transform3d originalRobotToSpindexer, originalRobotToIntake, originalRobotToElevator, originalRobotToIntakeRollers;
+    Transform3d originalRobotToSpindexer, originalRobotToIntake, originalRobotToElevator, originalRobotToIntakeRollers, originalRobotToTurret;
 
     List<SimMechanism> mechanisms;
 
@@ -37,7 +37,7 @@ public class Rebuilt2026 extends SimBaseRobot {
         driveTrain = new SwerveChassis(this, startingPose, Constants.Swerve2024());
 
         // Spindexer (Flywheel)
-        originalRobotToSpindexer = new Transform3d(Meters.of(-0.1), Meters.of(0), Meters.of(0.15), new Rotation3d());
+        originalRobotToSpindexer = new Transform3d(Meters.of(0.0), Meters.of(0), Meters.of(0.14), new Rotation3d());
         spindexer = new Flywheel(this,
                 new Transform3d(originalRobotToSpindexer.getMeasureX(), originalRobotToSpindexer.getMeasureY(), originalRobotToSpindexer.getMeasureZ(), originalRobotToSpindexer.getRotation()),
                 new Rotation3d(0, 0, 1), // Flywheel rotates around this axis
@@ -49,7 +49,7 @@ public class Rebuilt2026 extends SimBaseRobot {
                 true);
 
         // Intake (Arm)
-        originalRobotToIntake = new Transform3d(Meters.of(-0.35), Meters.of(0.0), Meters.of(0.3), new Rotation3d());
+        originalRobotToIntake = new Transform3d(Meters.of(-0.19), Meters.of(0.0), Meters.of(0.2), new Rotation3d());
         intake = new Arm(this,
                 new Transform3d(originalRobotToIntake.getMeasureX(), originalRobotToIntake.getMeasureY(), originalRobotToIntake.getMeasureZ(), originalRobotToIntake.getRotation()),
                 new Rotation3d(0, 1, 0), // Arm rotations around this axis
@@ -65,7 +65,7 @@ public class Rebuilt2026 extends SimBaseRobot {
                 false);
 
         // Elevator Carrier (Elevator)
-        originalRobotToElevator = new Transform3d(Meters.of(0.33), Meters.of(0.1), Meters.of(0.3), new Rotation3d());
+        originalRobotToElevator = new Transform3d(Meters.of(0.17), Meters.of(0.293), Meters.of(0.17), new Rotation3d());
         elevator = new Elevator(this,
                 new Transform3d(originalRobotToElevator.getMeasureX(), originalRobotToElevator.getMeasureY(), originalRobotToElevator.getMeasureZ(), originalRobotToElevator.getRotation()),
                 new Translation3d(0, 0, 1), // Elevator moves on this axis
@@ -81,7 +81,7 @@ public class Rebuilt2026 extends SimBaseRobot {
                 false);
 
         // Intake Rollers (Flywheel)
-        originalRobotToIntakeRollers = new Transform3d(Meters.of(0), Meters.of(0.0), Meters.of(0), new Rotation3d());
+        originalRobotToIntakeRollers = new Transform3d(Meters.of(0.15), Meters.of(0.0), Meters.of(0.175), new Rotation3d());
         intakeRollers = new Flywheel(this,
                 new Transform3d(originalRobotToIntakeRollers.getMeasureX(), originalRobotToIntakeRollers.getMeasureY(), originalRobotToIntakeRollers.getMeasureZ(), originalRobotToIntakeRollers.getRotation()),
                 new Rotation3d(0, 1, 0), // Flywheel rotates around this axis
@@ -92,8 +92,27 @@ public class Rebuilt2026 extends SimBaseRobot {
                 false,
                 true);
 
+        // Turret (Arm)
+        originalRobotToTurret = new Transform3d(Meters.of(0.25), Meters.of(-0.115), Meters.of(0.3), new Rotation3d());
+        turret = new Arm(this,
+                new Transform3d(originalRobotToTurret.getMeasureX(), originalRobotToTurret.getMeasureY(), originalRobotToTurret.getMeasureZ(), originalRobotToTurret.getRotation()),
+                new Rotation3d(0, 0, 1), // Arm rotations around this axis
+                "turret",
+                DCMotor.getKrakenX60(1),
+                1,
+                1.0,
+                Meters.of(1),
+                Degrees.of(-9999),
+                Degrees.of(9999.0),
+                Degrees.of(0.0),
+                false,
+                false);
+        
+
+        
+
         // List of mechanisms
-        mechanisms = List.of(spindexer, intake, elevator, intakeRollers);
+        mechanisms = List.of(spindexer, intake, elevator, intakeRollers, turret);
     }
 
     @Override
@@ -106,7 +125,7 @@ public void Update() {
             
         // Update the wheels position based on the arm's position
         double intakeAngle = intake.GetAngle();
-        double intakeLength = 0.15; // Assuming this is the arm's length (r)
+        double intakeLength = 0.25; // Assuming this is the arm's length (r)
 
         // Convert polar to rectangular
         double wheelsX = intakeLength * Math.sin(intakeAngle); // x = r * cos(θ)
@@ -118,7 +137,7 @@ public void Update() {
     
         // Create new Pose3d for wheels
         Pose3d armRotatorPoseWheels = new Pose3d(
-            new Translation3d(wheelsX - 0.25, 0, wheelsZ + 0.3), 
+            new Translation3d(wheelsX - 0.5, 0, wheelsZ + 0), 
             new Rotation3d(intakeAngleX, intakeAngleY, intakeAngleZ)
         );
 

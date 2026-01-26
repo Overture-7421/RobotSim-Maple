@@ -3,7 +3,7 @@
     "rotations": [
         {
             "axis": "x",
-            "degrees": 90
+            "degrees": 180
             
         },
         {
@@ -12,13 +12,13 @@
         },
         {
             "axis": "z",
-            "degrees": 90
+            "degrees": -90
         }
     ],
     "position": [
         0,
         0,
-        0.09
+        0.07
     ],
     "cameras": [],
     "components": [
@@ -27,7 +27,7 @@
             "zeroedRotations": [
                 {
                     "axis": "x",
-                    "degrees": 90
+                    "degrees": 180
                 },
                 {
                     "axis": "y",
@@ -39,9 +39,9 @@
                 }
             ],
             "zeroedPosition": [
+                -0.02,
                 0.0,
-                0.0,
-                -0.06
+                -0.05
             ]
         },
         { 
@@ -49,7 +49,7 @@
         "zeroedRotations": [    
             {
             "axis": "x",
-                    "degrees": 90
+                    "degrees": 180
             },
             {
                     "axis": "y",
@@ -57,13 +57,13 @@
                 },
                 {
                     "axis": "z",
-                    "degrees": 90
+                    "degrees": -90
                 }
             ],
             "zeroedPosition": [
-                0.365,
+                0.19,
                 0.0,
-                -0.12
+                -0.132
             ]
         },
         { 
@@ -79,13 +79,13 @@
                 },
                 {
                     "axis": "z",
-                    "degrees": 90
+                    "degrees": 180
                 }
             ],
             "zeroedPosition": [
-                -0.32,
-                -0.1,
-                -0.16
+                0.1,
+                -0.318,
+                -0.17
             ]
         },
         { 
@@ -105,10 +105,34 @@
                 }
             ],
             "zeroedPosition": [
-                0.15,
+                0.38,
                 0.0,
-                0.524
+                -0.082
+            ]
+        },
+        { 
+            "_comment": "Turret",
+            "zeroedRotations": [
+                {
+                    "axis": "x",
+                    "degrees": 180
+                },
+                {
+                    "axis": "y",
+                    "degrees": 0
+                },
+                {
+                    "axis": "z",
+                    "degrees": -90
+                }
+            ],
+            "zeroedPosition": [
+                -0.15,
+                0.11,
+                -0.28
             ]
         }
+
+
     ]
 }
