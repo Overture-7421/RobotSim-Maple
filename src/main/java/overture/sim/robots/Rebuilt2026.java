@@ -141,38 +141,30 @@ public class Rebuilt2026 extends SimBaseRobot {
         mechanisms = List.of(spindexer, intake, elevator, intakeRollers, turret, hood, shooterWheels);
     }
 
+    // OFFSET FIJO DESDE EL INTAKE HASTA LOS ROLLERS
+private static final Transform3d intakeToRollers =
+    new Transform3d(
+        Meters.of(-0.16), // distancia a lo largo del brazo
+        Meters.of(0.0),
+        Meters.of(0.22),
+        new Rotation3d()
+    );
+
+
     @Override
 public void Update() {
     driveTrain.Update();
     mechanisms.forEach(mech -> mech.Update());
 
-    // INTAKE ROLLERS CONTROL WITH INTAKE
-    //Copiar los movimientos de translación de X y Z del intake a los rolers, con coordenadas polares
-            
-        // Update the wheels position based on the arm's position
-        double intakeAngle = intake.GetAngle();
-        double intakeLength = 0.25; // Assuming this is the arm's length (r)
-
-        // Convert polar to rectangular
-        double wheelsX = intakeLength * Math.sin(intakeAngle); // x = r * cos(θ)
-        double wheelsZ = intakeLength * Math.cos(intakeAngle); // y = r * sin(θ)
-        // Update the wheels rotation based on the arm's rotator
-        double intakeAngleX = intake.GetPoses3d().get(0).getRotation().getX(); // Angle in radians
-        double intakeAngleY = intake.GetPoses3d().get(0).getRotation().getY(); // Angle in radians
-        double intakeAngleZ = intake.GetPoses3d().get(0).getRotation().getZ(); // Angle in radians
-    
-        // Create new Pose3d for wheels
-        Pose3d armRotatorPoseWheels = new Pose3d(
-            new Translation3d(wheelsX - 0.5, 0, wheelsZ + 0), 
-            new Rotation3d(intakeAngleX, intakeAngleY, intakeAngleZ)
-        );
-
-        // Update the wheels position
-        intakeRollers.SetRobotToMechanism(
-            originalRobotToIntakeRollers.plus(new Transform3d(armRotatorPoseWheels.getTranslation(), armRotatorPoseWheels.getRotation())));
-    
-
-
+        // ---------------------------------------
+        // INTAKE & INTAKE ROLLERS
+        // ---------------------------------------
+        Transform3d robotToIntake = intake.GetPoses3d().get(0).minus(new Pose3d());
+        Transform3d robotToRollers = robotToIntake.plus(intakeToRollers);
+        intakeRollers.SetRobotToMechanism(robotToRollers);
+        // ---------------------------------------
+        // INTAKE & INTAKE ROLLERS
+        // ---------------------------------------
 }
 
     @Override
