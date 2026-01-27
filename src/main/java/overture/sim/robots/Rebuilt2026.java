@@ -149,6 +149,25 @@ private static final Transform3d intakeToRollers =
         new Rotation3d()
     );
 
+    // OFFSET FIJO DESDE LA TORRETA AL HOOD
+private static final Transform3d turretToHood =
+    new Transform3d(
+        Meters.of(-0.145),
+        Meters.of(0.0),
+        Meters.of(0.07),
+        new Rotation3d()
+    );
+
+    // OFFSET FIJO DESDE LA TORRETA A LAS SHOOTER WHEELS
+private static final Transform3d turretToShooterWheels =
+    new Transform3d(
+        Meters.of(-0.13),
+        Meters.of(0.0),
+        Meters.of(0.07),
+        new Rotation3d()
+    );
+
+
     @Override
 public void Update() {
     driveTrain.Update();
@@ -164,31 +183,21 @@ public void Update() {
         // INTAKE & INTAKE ROLLERS
         // ---------------------------------------
 
-
         // ---------------------------------------
-        // TURRET ROTATION, X and Y AXIS HERITAGE TO HOOD
+        // TURRET ROTATION HERITAGE TO HOOD AND SHOOTER WHEELS
         // ---------------------------------------
-        Pose3d turretPose = turret.GetPoses3d().get(0);
+        Transform3d robotToTurret =
+            turret.GetPoses3d().get(0).minus(new Pose3d());
 
-        // Offset original del hood respecto a la turret
-        Translation3d hoodOffset = originalRobotToHood.getTranslation();
+        Transform3d robotToHood =
+            robotToTurret.plus(turretToHood);
+        hood.SetRobotToMechanism(robotToHood);
 
-        // Hood: X y Y vienen de la turret, Z es offset propio
-        Translation3d hoodTranslation =
-            turretPose.getTranslation().plus(hoodOffset);
-
-        // Hood hereda rotación de la turret
-        Pose3d hoodPose = new Pose3d(
-            hoodTranslation,
-            turretPose.getRotation()
-        );
-
-        hood.SetRobotToMechanism(
-            new Transform3d(hoodPose.getTranslation(), hoodPose.getRotation())
-        );
-
+        Transform3d robotToShooter =
+            robotToTurret.plus(turretToShooterWheels);
+        shooterWheels.SetRobotToMechanism(robotToShooter);
         // ---------------------------------------
-        // TURRET ROTATION, X and Y HERITAGE TO HOOD
+        // TURRET ROTATION HERITAGE TO HOOD AND SHOOTER WHEELS
         // ---------------------------------------
 }
 
