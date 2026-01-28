@@ -55,8 +55,8 @@ public class Rebuilt2026 extends SimBaseRobot {
                 new Rotation3d(0, 1, 0), // Arm rotations around this axis
                 "intake",
                 DCMotor.getKrakenX60(1),
-                1,
-                1.0,
+                50,
+                0.1,
                 Meters.of(1),
                 Degrees.of(-9999),
                 Degrees.of(9999.0),
@@ -71,7 +71,7 @@ public class Rebuilt2026 extends SimBaseRobot {
                 new Translation3d(0, 0, 1), // Elevator moves on this axis
                 "elevator",
                 DCMotor.getKrakenX60(2),
-                1,
+                12,
                 Kilograms.of(0.5),
                 Meters.of(0.1),
                 Meters.of(0.0),
@@ -99,8 +99,8 @@ public class Rebuilt2026 extends SimBaseRobot {
                 new Rotation3d(0, 0, 1), // Arm rotations around this axis
                 "turret",
                 DCMotor.getKrakenX60(1),
-                1,
-                1.0,
+                41.6, //41.666
+                0.01,
                 Meters.of(1),
                 Degrees.of(-9999),
                 Degrees.of(9999.0),
@@ -115,8 +115,8 @@ public class Rebuilt2026 extends SimBaseRobot {
                 new Rotation3d(0, 1, 0), // Arm rotations around this axis
                 "hood",
                 DCMotor.getKrakenX60(1),
-                1,
-                1.0,
+                142.4,
+                0.1,
                 Meters.of(1),
                 Degrees.of(-9999),
                 Degrees.of(9999.0),
