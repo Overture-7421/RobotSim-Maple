@@ -20,6 +20,9 @@ import overture.sim.mechanisms.elevator.Elevator;
 import overture.sim.mechanisms.flywheel.Flywheel;
 import overture.sim.swerve.Constants;
 import overture.sim.swerve.SwerveChassis;
+import edu.wpi.first.networktables.DoublePublisher;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
 
 public class Rebuilt2026 extends SimBaseRobot {
     SwerveChassis driveTrain;
@@ -27,12 +30,34 @@ public class Rebuilt2026 extends SimBaseRobot {
     Arm intake, turret, hood;
     Elevator elevator;
     Transform3d originalRobotToSpindexer, originalRobotToIntake, originalRobotToElevator, originalRobotToIntakeRollers, originalRobotToTurret, originalRobotToHood, originalRobotToShooterWheels;
+    private DoublePublisher encoderSpeedEntryCanCoder1, encoderPositionEntryCanCoder1, encoderSpeedEntryCanCoder2, encoderPositionEntryCanCoder2;
+    final double turretRatio = 41.666; 
+
 
     List<SimMechanism> mechanisms;
 
     public Rebuilt2026(String name, Pose2d startingPose) {
         super(name, startingPose);
 
+        NetworkTableInstance ntInst = NetworkTableInstance.getDefault();
+        NetworkTable motorTable = ntInst.getTable(name + "/cancoders/");
+
+
+        encoderSpeedEntryCanCoder1 = motorTable.getDoubleTopic("turretcancoder1/cancoder_speed").publish();
+        encoderPositionEntryCanCoder1 = motorTable.getDoubleTopic("turretcancoder1/cancoder_position").publish();
+
+        encoderSpeedEntryCanCoder2 = motorTable.getDoubleTopic("turretcancoder2/cancoder_speed").publish();
+        encoderPositionEntryCanCoder2 = motorTable.getDoubleTopic("turretcancoder2/cancoder_position").publish();
+
+
+            encoderSpeedEntryCanCoder1.set(0);
+            encoderPositionEntryCanCoder1.set(0);
+
+            encoderSpeedEntryCanCoder2.set(0);
+            encoderPositionEntryCanCoder2.set(0);
+
+
+        
         // Drivertain
         driveTrain = new SwerveChassis(this, startingPose, Constants.Swerve2024());
 
@@ -99,7 +124,7 @@ public class Rebuilt2026 extends SimBaseRobot {
                 new Rotation3d(0, 0, 1), // Arm rotations around this axis
                 "turret",
                 DCMotor.getKrakenX60(1),
-                41.6, //41.666
+                turretRatio,
                 0.01,
                 Meters.of(1),
                 Degrees.of(-9999),
@@ -168,6 +193,7 @@ private static final Transform3d turretToShooterWheels =
     );
 
 
+    
     @Override
 public void Update() {
     driveTrain.Update();
@@ -198,6 +224,28 @@ public void Update() {
         shooterWheels.SetRobotToMechanism(robotToShooter);
         // ---------------------------------------
         // TURRET ROTATION HERITAGE TO HOOD AND SHOOTER WHEELS
+        // ---------------------------------------
+
+        // ---------------------------------------
+        // TURRET CANCODERS //
+        // ---------------------------------------
+
+        // Obtener la posición del motor de la torreta (en este caso, el ángulo de la torreta)
+        double turretAngleC = turret.GetAngle() * (turretRatio / (2.0 * Math.PI)); // Convertir a grados
+        // Tener un valor de cancoder1, con base al angulo de la torreta y el gear ratio
+        double cancoder1Value = turretAngleC * 0.08571918395;
+        //Publicar
+        encoderPositionEntryCanCoder1.set(cancoder1Value);
+
+
+        // TURRET CANCODER 2 //
+        // Tener un valor de cancoder1, con base al angulo de la torreta y el gear ratio
+        double cancoder2Value = turretAngleC * 0.09230797633;
+        // Publicar
+        encoderPositionEntryCanCoder2.set(cancoder2Value);
+
+        // ---------------------------------------
+        // TURRET CANCODERS //
         // ---------------------------------------
 }
 
