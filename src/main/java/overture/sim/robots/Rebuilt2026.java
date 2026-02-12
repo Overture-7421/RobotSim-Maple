@@ -3,6 +3,8 @@ package overture.sim.robots;
 import static edu.wpi.first.units.Units.Degrees;
 import static edu.wpi.first.units.Units.Kilograms;
 import static edu.wpi.first.units.Units.Meters;
+import static edu.wpi.first.units.Units.Radians;
+import static edu.wpi.first.units.Units.RadiansPerSecond;
 
 import java.util.List;
 
@@ -14,15 +16,13 @@ import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.system.plant.DCMotor;
+import overture.sim.NTCANCoder;
 import overture.sim.mechanisms.SimMechanism;
 import overture.sim.mechanisms.arm.Arm;
 import overture.sim.mechanisms.elevator.Elevator;
 import overture.sim.mechanisms.flywheel.Flywheel;
 import overture.sim.swerve.Constants;
 import overture.sim.swerve.SwerveChassis;
-import edu.wpi.first.networktables.DoublePublisher;
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableInstance;
 
 public class Rebuilt2026 extends SimBaseRobot {
     SwerveChassis driveTrain;
@@ -30,33 +30,14 @@ public class Rebuilt2026 extends SimBaseRobot {
     Arm intake, turret, hood;
     Elevator elevator;
     Transform3d originalRobotToSpindexer, originalRobotToIntake, originalRobotToElevator, originalRobotToIntakeRollers, originalRobotToTurret, originalRobotToHood, originalRobotToShooterWheels;
-    private DoublePublisher encoderSpeedEntryCanCoder1, encoderPositionEntryCanCoder1, encoderSpeedEntryCanCoder2, encoderPositionEntryCanCoder2;
     final double turretRatio = 41.666; 
+    NTCANCoder cancoder1, cancoder2;
 
 
     List<SimMechanism> mechanisms;
 
     public Rebuilt2026(String name, Pose2d startingPose) {
         super(name, startingPose);
-
-        NetworkTableInstance ntInst = NetworkTableInstance.getDefault();
-        NetworkTable motorTable = ntInst.getTable(name + "/cancoders/");
-
-
-        encoderSpeedEntryCanCoder1 = motorTable.getDoubleTopic("turretcancoder1/cancoder_speed").publish();
-        encoderPositionEntryCanCoder1 = motorTable.getDoubleTopic("turretcancoder1/cancoder_position").publish();
-
-        encoderSpeedEntryCanCoder2 = motorTable.getDoubleTopic("turretcancoder2/cancoder_speed").publish();
-        encoderPositionEntryCanCoder2 = motorTable.getDoubleTopic("turretcancoder2/cancoder_position").publish();
-
-
-            encoderSpeedEntryCanCoder1.set(0);
-            encoderPositionEntryCanCoder1.set(0);
-
-            encoderSpeedEntryCanCoder2.set(0);
-            encoderPositionEntryCanCoder2.set(0);
-
-
         
         // Drivertain
         driveTrain = new SwerveChassis(this, startingPose, Constants.Swerve2024());
@@ -125,7 +106,7 @@ public class Rebuilt2026 extends SimBaseRobot {
                 "turret",
                 DCMotor.getKrakenX60(1),
                 turretRatio,
-                0.01,
+                0.1,
                 Meters.of(1),
                 Degrees.of(-9999),
                 Degrees.of(9999.0),
@@ -163,6 +144,25 @@ public class Rebuilt2026 extends SimBaseRobot {
         
         // List of mechanisms
         mechanisms = List.of(spindexer, intake, elevator, intakeRollers, turret, hood, shooterWheels);
+
+
+        cancoder1 = new NTCANCoder(new NTCANCoder.Config() {
+            {
+                Name = name + "/cancoders/" + "turret_cancoder1";
+                EncoderPosition = () -> Radians.of(turret.GetAngle() * turretRatio * 0.08571918395);
+                EncoderSpeed = () -> RadiansPerSecond.of(turret.GetAngularVelocity() * turretRatio * 0.08571918395 );
+                Inverted = false;
+            }
+        });
+
+        cancoder2 = new NTCANCoder(new NTCANCoder.Config() {
+            {
+                Name = name + "/cancoders/" + "turret_cancoder2";
+                EncoderPosition = () -> Radians.of(turret.GetAngle() * turretRatio * 0.09230797633);
+                EncoderSpeed = () -> RadiansPerSecond.of(turret.GetAngularVelocity() * turretRatio * 0.09230797633);
+                Inverted = false;
+            }
+        });
     }
 
     // OFFSET FIJO DESDE EL INTAKE HASTA LOS ROLLERS
@@ -229,24 +229,9 @@ public void Update() {
         // ---------------------------------------
         // TURRET CANCODERS //
         // ---------------------------------------
+        cancoder1.Update();
+        cancoder2.Update();
 
-        // Obtener la posición del motor de la torreta (en este caso, el ángulo de la torreta)
-        double turretAngleC = turret.GetAngle() * (turretRatio / (2.0 * Math.PI)); // Convertir a grados
-        // Tener un valor de cancoder1, con base al angulo de la torreta y el gear ratio
-        double cancoder1Value = turretAngleC * 0.08571918395;
-        //Publicar
-        encoderPositionEntryCanCoder1.set(cancoder1Value);
-
-
-        // TURRET CANCODER 2 //
-        // Tener un valor de cancoder1, con base al angulo de la torreta y el gear ratio
-        double cancoder2Value = turretAngleC * 0.09230797633;
-        // Publicar
-        encoderPositionEntryCanCoder2.set(cancoder2Value);
-
-        // ---------------------------------------
-        // TURRET CANCODERS //
-        // ---------------------------------------
 }
 
     @Override

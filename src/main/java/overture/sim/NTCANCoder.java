@@ -2,6 +2,7 @@ package overture.sim;
 
 import static edu.wpi.first.units.Units.RadiansPerSecond;
 import static edu.wpi.first.units.Units.Rotations;
+import static edu.wpi.first.units.Units.RotationsPerSecond;
 
 import edu.wpi.first.networktables.DoublePublisher;
 import edu.wpi.first.networktables.NetworkTable;
@@ -43,6 +44,6 @@ public class NTCANCoder {
 
     public void Update() {
         encoderPositionEntry.set(config.EncoderPosition.get().in(Rotations) * invMultiplier);
-        encoderSpeedEntry.set(config.EncoderSpeed.get().in(RadiansPerSecond) * invMultiplier);
+        encoderSpeedEntry.set(config.EncoderSpeed.get().in(RotationsPerSecond) * invMultiplier);
     }
 }

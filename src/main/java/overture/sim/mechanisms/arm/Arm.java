@@ -88,6 +88,10 @@ public class Arm extends SimMechanism {
 		return singleJointedArmSim.getAngleRads();
 	}
 
+	public double GetAngularVelocity() {
+		return singleJointedArmSim.getVelocityRadPerSec();
+	}
+
 	@Override
 	public void Update() {
 		singleJointedArmSim.update(GetTimeStep());
