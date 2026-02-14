@@ -61,7 +61,7 @@ public class Rebuilt2026 extends SimBaseRobot {
                 new Rotation3d(0, 1, 0), // Arm rotations around this axis
                 "intake",
                 DCMotor.getKrakenX60(1),
-                50,
+                62.5,
                 0.1,
                 Meters.of(1),
                 Degrees.of(-9999),
