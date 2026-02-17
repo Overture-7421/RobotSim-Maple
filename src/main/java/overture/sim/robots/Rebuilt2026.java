@@ -43,7 +43,7 @@ public class Rebuilt2026 extends SimBaseRobot {
         driveTrain = new SwerveChassis(this, startingPose, Constants.Swerve2024());
 
         // Spindexer (Flywheel)
-        originalRobotToSpindexer = new Transform3d(Meters.of(0.0), Meters.of(0), Meters.of(0.14), new Rotation3d());
+        originalRobotToSpindexer = new Transform3d(Meters.of(0.17), Meters.of(0), Meters.of(0.14), new Rotation3d());
         spindexer = new Flywheel(this,
                 new Transform3d(originalRobotToSpindexer.getMeasureX(), originalRobotToSpindexer.getMeasureY(), originalRobotToSpindexer.getMeasureZ(), originalRobotToSpindexer.getRotation()),
                 new Rotation3d(0, 0, 1), // Flywheel rotates around this axis
@@ -55,7 +55,7 @@ public class Rebuilt2026 extends SimBaseRobot {
                 true);
 
         // Intake (Arm)
-        originalRobotToIntake = new Transform3d(Meters.of(-0.19), Meters.of(0.0), Meters.of(0.2), new Rotation3d());
+        originalRobotToIntake = new Transform3d(Meters.of(0.34), Meters.of(0.0), Meters.of(0.2), new Rotation3d());
         intake = new Arm(this,
                 new Transform3d(originalRobotToIntake.getMeasureX(), originalRobotToIntake.getMeasureY(), originalRobotToIntake.getMeasureZ(), originalRobotToIntake.getRotation()),
                 new Rotation3d(0, 1, 0), // Arm rotations around this axis
@@ -71,7 +71,7 @@ public class Rebuilt2026 extends SimBaseRobot {
                 false);
 
         // Elevator Carrier (Elevator)
-        originalRobotToElevator = new Transform3d(Meters.of(0.17), Meters.of(0.293), Meters.of(0.17), new Rotation3d());
+        originalRobotToElevator = new Transform3d(Meters.of(-0.03), Meters.of(-0.293), Meters.of(0.17), new Rotation3d());
         elevator = new Elevator(this,
                 new Transform3d(originalRobotToElevator.getMeasureX(), originalRobotToElevator.getMeasureY(), originalRobotToElevator.getMeasureZ(), originalRobotToElevator.getRotation()),
                 new Translation3d(0, 0, 1), // Elevator moves on this axis
@@ -99,7 +99,7 @@ public class Rebuilt2026 extends SimBaseRobot {
                 true);
 
         // Turret (Arm)
-        originalRobotToTurret = new Transform3d(Meters.of(0.26), Meters.of(-0.11), Meters.of(0.28), new Rotation3d());
+        originalRobotToTurret = new Transform3d(Meters.of(-0.11), Meters.of(0.11), Meters.of(0.28), new Rotation3d());
         turret = new Arm(this,
                 new Transform3d(originalRobotToTurret.getMeasureX(), originalRobotToTurret.getMeasureY(), originalRobotToTurret.getMeasureZ(), originalRobotToTurret.getRotation()),
                 new Rotation3d(0, 0, 1), // Arm rotations around this axis
@@ -115,7 +115,7 @@ public class Rebuilt2026 extends SimBaseRobot {
                 false);
         
         // Hood (Arm)
-        originalRobotToHood = new Transform3d(Meters.of(-0.145), Meters.of(-0.0), Meters.of(0.07), new Rotation3d());
+        originalRobotToHood = new Transform3d(Meters.of(0.295), Meters.of(0.0), Meters.of(0.07), new Rotation3d());
         hood = new Arm(this,
                 new Transform3d(originalRobotToHood.getMeasureX(), originalRobotToHood.getMeasureY(), originalRobotToHood.getMeasureZ(), originalRobotToHood.getRotation()),
                 new Rotation3d(0, 1, 0), // Arm rotations around this axis
@@ -131,7 +131,7 @@ public class Rebuilt2026 extends SimBaseRobot {
                 false);
 
         // Shooter Wheels (Flywheel)
-        originalRobotToShooterWheels = new Transform3d(Meters.of(0.13), Meters.of(-0.11), Meters.of(0.35), new Rotation3d());
+        originalRobotToShooterWheels = new Transform3d(Meters.of(0.2), Meters.of(0.11), Meters.of(0.35), new Rotation3d());
         shooterWheels = new Flywheel(this,
                 new Transform3d(originalRobotToShooterWheels.getMeasureX(), originalRobotToShooterWheels.getMeasureY(), originalRobotToShooterWheels.getMeasureZ(), originalRobotToShooterWheels.getRotation()),
                 new Rotation3d(0, 1, 0), // Flywheel rotates around this axis
@@ -168,7 +168,7 @@ public class Rebuilt2026 extends SimBaseRobot {
     // OFFSET FIJO DESDE EL INTAKE HASTA LOS ROLLERS
 private static final Transform3d intakeToRollers =
     new Transform3d(
-        Meters.of(-0.16), // distancia a lo largo del brazo
+        Meters.of(0.16), // distancia a lo largo del brazo
         Meters.of(0.0),
         Meters.of(0.22),
         new Rotation3d()
@@ -177,7 +177,7 @@ private static final Transform3d intakeToRollers =
     // OFFSET FIJO DESDE LA TORRETA AL HOOD
 private static final Transform3d turretToHood =
     new Transform3d(
-        Meters.of(-0.145),
+        Meters.of(0.145),
         Meters.of(0.0),
         Meters.of(0.07),
         new Rotation3d()
@@ -186,7 +186,7 @@ private static final Transform3d turretToHood =
     // OFFSET FIJO DESDE LA TORRETA A LAS SHOOTER WHEELS
 private static final Transform3d turretToShooterWheels =
     new Transform3d(
-        Meters.of(-0.13),
+        Meters.of(0.13),
         Meters.of(0.0),
         Meters.of(0.07),
         new Rotation3d()
