@@ -52,7 +52,7 @@ public class Rebuilt2026 extends SimBaseRobot {
                 0.33,
                 0.01,
                 false,
-                true);
+                false);
 
         // Intake (Arm)
         originalRobotToIntake = new Transform3d(Meters.of(0.34), Meters.of(0.0), Meters.of(0.2), new Rotation3d());
@@ -96,7 +96,7 @@ public class Rebuilt2026 extends SimBaseRobot {
                 1,
                 0.01,
                 false,
-                true);
+                false);
 
         // Turret (Arm)
         originalRobotToTurret = new Transform3d(Meters.of(-0.11), Meters.of(0.11), Meters.of(0.28), new Rotation3d());
@@ -140,7 +140,7 @@ public class Rebuilt2026 extends SimBaseRobot {
                 1,
                 0.01,
                 false,
-                true);
+                false);
         
         // List of mechanisms
         mechanisms = List.of(spindexer, intake, elevator, intakeRollers, turret, hood, shooterWheels);
