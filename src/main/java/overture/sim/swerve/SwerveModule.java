@@ -26,7 +26,7 @@ public class SwerveModule {
                 EncoderPosition = () -> moduleSimulation.getDriveEncoderUnGearedPosition();
                 EncoderSpeed = () -> moduleSimulation.getDriveEncoderUnGearedSpeed();
                 Current = () -> moduleSimulation.getDriveMotorSupplyCurrent();
-                Inverted = true;
+                Inverted = false;
             }
         });
 
@@ -38,7 +38,7 @@ public class SwerveModule {
                 EncoderPosition = () -> moduleSimulation.getSteerRelativeEncoderPosition();
                 EncoderSpeed = () -> moduleSimulation.getSteerRelativeEncoderVelocity();
                 Current = () -> moduleSimulation.getSteerMotorSupplyCurrent();
-                Inverted = true;
+                Inverted = false;
             }
         });
 
