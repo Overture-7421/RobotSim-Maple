@@ -18,7 +18,8 @@ import edu.wpi.first.networktables.NetworkTableListener;
 import edu.wpi.first.wpilibj.DriverStation;
 //import overture.sim.robots.DaytonaOffseason;
 //import overture.sim.robots.Reefscape2025;
-import overture.sim.robots.Rebuilt2026;
+//import overture.sim.robots.Rebuilt2026;
+import overture.sim.robots.Shelby2;
 import overture.sim.robots.SimBaseRobot;
 
 public class SimMain {
@@ -31,7 +32,9 @@ public class SimMain {
 		// Mechanisms
 		//robot = new Reefscape2025("Reefscape2025", new Pose2d(3, 3, new Rotation2d()));
 		//robot = new DaytonaOffseason("DaytonaOffseason", new Pose2d(3, 3, new Rotation2d()));
-		robot = new Rebuilt2026("Rebuilt2026", new Pose2d(3, 3, new Rotation2d()));
+		//robot = new Rebuilt2026("Rebuilt2026", new Pose2d(3, 3, new Rotation2d()));
+		robot = new Shelby2("Shelby2", new Pose2d(3, 3, new Rotation2d()));
+
 
 
 
