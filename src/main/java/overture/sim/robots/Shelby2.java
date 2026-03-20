@@ -26,6 +26,7 @@ import overture.sim.swerve.SwerveChassis;
 
 public class Shelby2 extends SimBaseRobot {
     SwerveChassis driveTrain;
+    Elevator intake;
 
     List<SimMechanism> mechanisms;
 
@@ -35,9 +36,23 @@ public class Shelby2 extends SimBaseRobot {
         // Drivetrain
         driveTrain = new SwerveChassis(this, startingPose, Constants.Swerve2024());
 
+        // Intake
+        intake = new Elevator(this,
+                new Transform3d(Meters.of(0.3), Meters.of(-0.09), Meters.of(0.13), new Rotation3d()),
+                new Translation3d(1, 0, 0),
+                "intake",
+                DCMotor.getKrakenX60(2),
+                1,
+                Kilograms.of(0.01),
+                Meters.of(0.1),
+                Meters.of(0.0),
+                Meters.of(0.31),
+                Meters.of(0.0),
+                1,
+                false);
 
         // List of mechanisms
-        mechanisms = List.of();
+        mechanisms = List.of(intake);
 
     }
 
@@ -58,4 +73,3 @@ public class Shelby2 extends SimBaseRobot {
         return mechanisms;
     }
 }
-
