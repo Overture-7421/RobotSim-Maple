@@ -61,7 +61,7 @@ public class Shelby2 extends SimBaseRobot {
         intakeFlywheel = new Flywheel(this,
                 new Transform3d(originalRobotToIntakeFlywheel.getMeasureX(), originalRobotToIntakeFlywheel.getMeasureY(), originalRobotToIntakeFlywheel.getMeasureZ(), originalRobotToIntakeFlywheel.getRotation()),
                 new Rotation3d(0, 1, 0), 
-                "intake_flywheel",
+                "intake_roller",
                 DCMotor.getKrakenX60(1),
                 1,
                 0.01,
@@ -73,7 +73,7 @@ public class Shelby2 extends SimBaseRobot {
         indexerFlywheel = new Flywheel(this,
                 new Transform3d(originalRobotToIndexerFlywheel.getMeasureX(), originalRobotToIndexerFlywheel.getMeasureY(), originalRobotToIndexerFlywheel.getMeasureZ(), originalRobotToIndexerFlywheel.getRotation()),
                 new Rotation3d(0, 1, 0), 
-                "indexer_flywheel",
+                "indexer",
                 DCMotor.getKrakenX60(1),
                 1,
                 0.01,
@@ -109,7 +109,7 @@ public class Shelby2 extends SimBaseRobot {
                 true);
 
         // Passer FlyWheel
-        originalRobotToPasserFlywheel = new Transform3d(Meters.of(0.07), Meters.of(0.0), Meters.of(0.37), new Rotation3d());
+        originalRobotToPasserFlywheel = new Transform3d(Meters.of(0.04), Meters.of(0.0), Meters.of(0.38), new Rotation3d());
         passerFlywheel = new Flywheel(this,
                 new Transform3d(originalRobotToPasserFlywheel.getMeasureX(), originalRobotToPasserFlywheel.getMeasureY(), originalRobotToPasserFlywheel.getMeasureZ(), originalRobotToPasserFlywheel.getRotation()),
                 new Rotation3d(0, 1, 0),
