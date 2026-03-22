@@ -43,6 +43,50 @@
                 0.4,
                 -0.06
             ]
+        },
+        { 
+            "_comment": "intake_flywheel",
+            "zeroedRotations": [
+                {
+                    "axis": "x",
+                    "degrees": 180
+                },
+                {
+                    "axis": "y",
+                    "degrees": 0
+                },
+                {
+                    "axis": "z",
+                    "degrees": 90
+                }
+            ],
+            "zeroedPosition": [
+                -0.435,
+                0.3,
+                -0.132
+            ]
+        },
+        { 
+            "_comment": "indexer",
+            "zeroedRotations": [
+                {
+                    "axis": "x",
+                    "degrees": 180
+                },
+                {
+                    "axis": "y",
+                    "degrees": 0
+                },
+                {
+                    "axis": "z",
+                    "degrees": 90
+                }
+            ],
+            "zeroedPosition": [
+                0.051,
+                0.0,
+                -0.073
+            ]
         }
     ]
 }
