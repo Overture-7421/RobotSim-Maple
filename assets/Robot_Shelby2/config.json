@@ -109,6 +109,50 @@
                 0.0,
                 -0.45
             ]
+        },
+        { 
+            "_comment": "shooter",
+            "zeroedRotations": [
+                {
+                    "axis": "x",
+                    "degrees": 180
+                },
+                {
+                    "axis": "y",
+                    "degrees": 0
+                },
+                {
+                    "axis": "z",
+                    "degrees": 90
+                }
+            ],
+            "zeroedPosition": [
+                0.283,
+                0.0,
+                -0.45
+            ]
+        },
+        { 
+            "_comment": "passer",
+            "zeroedRotations": [
+                {
+                    "axis": "x",
+                    "degrees": 180
+                },
+                {
+                    "axis": "y",
+                    "degrees": 0
+                },
+                {
+                    "axis": "z",
+                    "degrees": 90
+                }
+            ],
+            "zeroedPosition": [
+                0.105,
+                0.0,
+                -0.33
+            ]
         }
     ]
 }

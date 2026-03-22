@@ -27,10 +27,10 @@ import overture.sim.swerve.SwerveChassis;
 public class Shelby2 extends SimBaseRobot {
     SwerveChassis driveTrain;
     Elevator intake;
-    Flywheel intakeFlywheel, indexerFlywheel;
+    Flywheel intakeFlywheel, indexerFlywheel, shooterFlywheel, passerFlywheel;
     Arm hood;
 
-    Transform3d originalRobotToIntakeFlywheel, originalRobotToIndexerFlywheel, originalRobotToHood;
+    Transform3d originalRobotToIntakeFlywheel, originalRobotToIndexerFlywheel, originalRobotToHood, originalRobotToShooterFlywheel, originalRobotToPasserFlywheel;
 
 
     List<SimMechanism> mechanisms;
@@ -96,10 +96,32 @@ public class Shelby2 extends SimBaseRobot {
                 false,
                 true);
 
+        // Shooter FlyWheel
+        originalRobotToShooterFlywheel = new Transform3d(Meters.of(-0.14), Meters.of(0.0), Meters.of(0.5), new Rotation3d());
+        shooterFlywheel = new Flywheel(this,
+                new Transform3d(originalRobotToShooterFlywheel.getMeasureX(), originalRobotToShooterFlywheel.getMeasureY(), originalRobotToShooterFlywheel.getMeasureZ(), originalRobotToShooterFlywheel.getRotation()),
+                new Rotation3d(0, 1, 0), 
+                "shooter",
+                DCMotor.getKrakenX60(1),
+                1,
+                0.01,
+                false,
+                true);
 
-                
+        // Passer FlyWheel
+        originalRobotToPasserFlywheel = new Transform3d(Meters.of(0.07), Meters.of(0.0), Meters.of(0.37), new Rotation3d());
+        passerFlywheel = new Flywheel(this,
+                new Transform3d(originalRobotToPasserFlywheel.getMeasureX(), originalRobotToPasserFlywheel.getMeasureY(), originalRobotToPasserFlywheel.getMeasureZ(), originalRobotToPasserFlywheel.getRotation()),
+                new Rotation3d(0, 1, 0),
+                "passer",
+                DCMotor.getKrakenX60(1),
+                1,
+                0.01,
+                false,
+                false);
+
         // List of mechanisms
-        mechanisms = List.of(intake, intakeFlywheel, indexerFlywheel, hood);
+        mechanisms = List.of(intake, intakeFlywheel, indexerFlywheel, hood, shooterFlywheel, passerFlywheel);
     }
 
         // ---------------------------------------
