@@ -28,8 +28,9 @@ public class Shelby2 extends SimBaseRobot {
     SwerveChassis driveTrain;
     Elevator intake;
     Flywheel intakeFlywheel, indexerFlywheel;
+    Arm hood;
 
-    Transform3d originalRobotToIntakeFlywheel, originalRobotToIndexerFlywheel;
+    Transform3d originalRobotToIntakeFlywheel, originalRobotToIndexerFlywheel, originalRobotToHood;
 
 
     List<SimMechanism> mechanisms;
@@ -79,10 +80,26 @@ public class Shelby2 extends SimBaseRobot {
                 false,
                 true);
 
+        // Hood (Arm)
+        originalRobotToHood = new Transform3d(Meters.of(-0.145), Meters.of(0.0), Meters.of(0.5), new Rotation3d());
+        hood = new Arm(this,
+                new Transform3d(originalRobotToHood.getMeasureX(), originalRobotToHood.getMeasureY(), originalRobotToHood.getMeasureZ(), originalRobotToHood.getRotation()),
+                new Rotation3d(0, 1, 0), 
+                "hood",
+                DCMotor.getKrakenX60(1),
+                1,
+                0.1,
+                Meters.of(1),
+                Degrees.of(-9999),
+                Degrees.of(9999.0),
+                Degrees.of(0.0),
+                false,
+                true);
+
 
                 
         // List of mechanisms
-        mechanisms = List.of(intake, intakeFlywheel, indexerFlywheel);
+        mechanisms = List.of(intake, intakeFlywheel, indexerFlywheel, hood);
     }
 
         // ---------------------------------------

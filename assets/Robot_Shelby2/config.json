@@ -87,6 +87,28 @@
                 0.0,
                 -0.073
             ]
+        },
+        { 
+            "_comment": "hood",
+            "zeroedRotations": [
+                {
+                    "axis": "x",
+                    "degrees": 180
+                },
+                {
+                    "axis": "y",
+                    "degrees": 0
+                },
+                {
+                    "axis": "z",
+                    "degrees": 90
+                }
+            ],
+            "zeroedPosition": [
+                0.285,
+                0.0,
+                -0.45
+            ]
         }
     ]
 }
