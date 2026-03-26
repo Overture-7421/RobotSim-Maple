@@ -96,6 +96,14 @@ public class Elevator extends SimMechanism {
     }
   }
 
+  public double GetPositionMeters() {
+    return elevatorSim.getPositionMeters();
+}
+
+public double GetVelocityMetersPerSecond() {
+    return elevatorSim.getVelocityMetersPerSecond();
+}
+
   @Override
   public void Update() {
     elevatorSim.update(GetTimeStep());

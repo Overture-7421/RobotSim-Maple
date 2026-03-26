@@ -29,7 +29,7 @@ public class Shelby2 extends SimBaseRobot {
     Elevator intake;
     Flywheel intakeFlywheel, indexerFlywheel, shooterFlywheel, passerFlywheel;
     Arm hood;
-    NTCANCoder hoodCanCoder;
+    NTCANCoder hoodCanCoder, intakeCanCoder;
 
     final double hoodGearRatio = 128;
 
@@ -136,6 +136,26 @@ public class Shelby2 extends SimBaseRobot {
         });
 
 
+
+        intakeCanCoder = new NTCANCoder(new NTCANCoder.Config() {
+            {
+                Name = name + "/cancoders/" + "intake_cancoder";
+
+                double drumRadius = 0.1; // MISMO que usaste en el Elevator
+
+                EncoderPosition = () -> Radians.of(
+                    (intake.GetPositionMeters() / drumRadius) * 6
+                );
+
+                EncoderSpeed = () -> RadiansPerSecond.of(
+                    (intake.GetVelocityMetersPerSecond() / drumRadius) * 6
+                );
+
+                Inverted = false;
+            }
+        });
+
+
     }     
 
         // ---------------------------------------
@@ -152,11 +172,10 @@ public class Shelby2 extends SimBaseRobot {
         // OFFSET FIJO DE INTAKE A ROLLERS
         // ---------------------------------------
     
-    @Override
-    public void Update() {
-        driveTrain.Update();
-        mechanisms.forEach(mech -> mech.Update());
-
+@Override
+public void Update() {
+    driveTrain.Update();
+    mechanisms.forEach(mech -> mech.Update());
 
         // ---------------------------------------
         // INTAKE & INTAKE ROLLERS
@@ -169,6 +188,7 @@ public class Shelby2 extends SimBaseRobot {
         // ---------------------------------------
 
         hoodCanCoder.Update();
+        intakeCanCoder.Update();
     }
 
     @Override
