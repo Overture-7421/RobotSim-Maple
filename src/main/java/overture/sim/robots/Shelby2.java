@@ -29,6 +29,9 @@ public class Shelby2 extends SimBaseRobot {
     Elevator intake;
     Flywheel intakeFlywheel, indexerFlywheel, shooterFlywheel, passerFlywheel;
     Arm hood;
+    NTCANCoder hoodCanCoder;
+
+    final double hoodGearRatio = 128;
 
     Transform3d originalRobotToIntakeFlywheel, originalRobotToIndexerFlywheel, originalRobotToHood, originalRobotToShooterFlywheel, originalRobotToPasserFlywheel;
 
@@ -87,7 +90,7 @@ public class Shelby2 extends SimBaseRobot {
                 new Rotation3d(0, 1, 0), 
                 "hood",
                 DCMotor.getKrakenX60(1),
-                128,
+                hoodGearRatio,
                 0.1,
                 Meters.of(1),
                 Degrees.of(-9999),
@@ -122,7 +125,18 @@ public class Shelby2 extends SimBaseRobot {
 
         // List of mechanisms
         mechanisms = List.of(intake, intakeFlywheel, indexerFlywheel, hood, shooterFlywheel, passerFlywheel);
-    }
+
+        hoodCanCoder = new NTCANCoder(new NTCANCoder.Config() {
+            {
+                Name = name + "/cancoders/" + "hood_cancoder";
+                EncoderPosition = () -> Radians.of(hood.GetAngle() * 6.4);
+                EncoderSpeed = () -> RadiansPerSecond.of(hood.GetAngularVelocity() * 6.4);
+                Inverted = true;
+            }
+        });
+
+
+    }     
 
         // ---------------------------------------
         // OFFSET FIJO DE INTAKE A ROLLERS
@@ -153,6 +167,8 @@ public class Shelby2 extends SimBaseRobot {
         // ---------------------------------------
         // INTAKE & INTAKE ROLLERS
         // ---------------------------------------
+
+        hoodCanCoder.Update();
     }
 
     @Override
