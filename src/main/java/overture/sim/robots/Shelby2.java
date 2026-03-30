@@ -141,7 +141,7 @@ public class Shelby2 extends SimBaseRobot {
             {
                 Name = name + "/cancoders/" + "intake_cancoder";
 
-                double drumRadius = 0.1; // MISMO que usaste en el Elevator
+                double drumRadius = 0.1;
 
                 EncoderPosition = () -> Radians.of(
                     (intake.GetPositionMeters() / drumRadius) * 6
