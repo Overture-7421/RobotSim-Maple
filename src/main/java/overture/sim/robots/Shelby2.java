@@ -97,7 +97,7 @@ public class Shelby2 extends SimBaseRobot {
                 Degrees.of(9999.0),
                 Degrees.of(0.0),
                 false,
-                true);
+                false);
 
         // Shooter FlyWheel
         originalRobotToShooterFlywheel = new Transform3d(Meters.of(-0.14), Meters.of(0.0), Meters.of(0.5), new Rotation3d());
