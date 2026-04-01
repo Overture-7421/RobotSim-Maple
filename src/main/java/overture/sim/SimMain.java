@@ -5,7 +5,7 @@ import static edu.wpi.first.units.Units.Seconds;
 import java.util.EnumSet;
 
 import org.ironmaple.simulation.SimulatedArena;
-import org.ironmaple.simulation.seasonspecific.reefscape2025.Arena2025Reefscape;
+import org.ironmaple.simulation.seasonspecific.rebuilt2026.Arena2026Rebuilt;
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
 
@@ -39,7 +39,7 @@ public class SimMain {
 
 
 		// Arena
-		SimulatedArena.overrideInstance(new Arena2025Reefscape());
+		SimulatedArena.overrideInstance(new Arena2026Rebuilt());
 		SimulatedArena.overrideSimulationTimings(Seconds.of(loggedRobot.getPeriod()), 50);
 		arena = SimulatedArena.getInstance();
 
